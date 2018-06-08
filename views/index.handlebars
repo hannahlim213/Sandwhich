@@ -1,1 +1,17 @@
-<h1>hello</h1>
+<h2>Sandwiches to be eaten</h2>
+
+<ul>
+    {{#each sandwiches}} 
+        {{#if devour=false}}
+        <button class="change-devour" data-id="{{id}}" data-newdevour="{{devour}}">
+        Eat it!
+        </button>
+        {{/if}} 
+    {{/each}}
+</ul>
+
+<h2>Devoured sandwiches!</h2>
+
+<ul>
+    {{#each sandwiches}} {{/each}}
+</ul>

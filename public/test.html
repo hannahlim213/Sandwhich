@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Sandwich Time</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
+
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+
+            <div class="col-md-6">
+
+                <img class="mx-auto d-block" src="assets/img/pbj.png" alt="peanut butter jelly picture">
+
+                <br>
+
+                <h1 id="title" class="text-monospace"> PEANUT BUTTER JELLY TIME!</h1>
+
+                <br>
+                <form class="create-form">
+                    <textarea class="form-control" id="user-input" rows="3">  </textarea>
+
+                    <br>
+
+                    <button id="submit-button" type="submit" class="btn btn-outline-primary text-monospace">Submit</button>
+
+                    <br>
+
+                    <p id="info" class="text-monospace">Enter a sandwich and click submit!</p>
+                </form>
+
+            </div>
+
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+
+<script>
+    $(".create-for ").on("submit", function(event) {
+        event.preventDefault();
+
+        var newSandwich = {
+            sandwich_name: $("#user-input").val().trim(),
+            devoured: false
+        };
+
+        $.ajax("/api/sandwiches", {
+            type: "POST",
+            data: newSandwich
+        }).then(function() {
+            console.log("created new sandwich");
+            location.reload();
+        });
+    });
+
+    $("")
+
+</script>
+
+
+</body>
+
+</html>
