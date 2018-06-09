@@ -2,7 +2,7 @@ var orm = require("../config/orm.js");
 
 var sandwich = {
     all: function(cb) {
-        orm.all("sandiches", function(res){
+        orm.all("sandwiches", function(res){
             cb(res);
         })
     },

@@ -1,17 +1,79 @@
-<h2>Sandwiches to be eaten</h2>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <br>
+            <br>
+            <br>
+            <h4 class="text-monospace">Sandwiches to be eaten</h4>
+            <div class="card">
+                <div class="card-body text-monospace">
+                    {{#each sandwiches}} {{sandwich_name}} {{#unless devoured}}
 
-<ul>
-    {{#each sandwiches}} 
-        {{#if devour=false}}
-        <button class="change-devour" data-id="{{id}}" data-newdevour="{{devour}}">
-        Eat it!
-        </button>
-        {{/if}} 
-    {{/each}}
-</ul>
+                    <button class="btn btn-warning change-devour" data-id="{{id}}" data-newdevour="{{devoured}}">
+                        Eat it!
+                    </button>
+                    <hr> {{/unless}} {{/each}}
+                </div>
+            </div>
+        </div>
 
-<h2>Devoured sandwiches!</h2>
+        <div class="col-md-4">
 
-<ul>
-    {{#each sandwiches}} {{/each}}
-</ul>
+            <img class="mx-auto d-block" src="assets/img/pbj.png" height="140px" alt="peanut butter jelly picture">
+
+            <br>
+
+            <h2 id="title" class="text-monospace"> PEANUT BUTTER JELLY TIME!</h2>
+
+            <br>
+            <form class="create-form">
+                <textarea class="form-control" id="user-input" rows="3">  </textarea>
+
+                <br>
+
+                <button id="submit-button" type="submit" class="btn btn-outline-primary text-monospace">Submit</button>
+
+                <br>
+
+                <p id="info" class="text-monospace">Enter a sandwich and click submit!</p>
+            </form>
+
+        </div>
+
+        <div class="col-md-4">
+            <br>
+            <br>
+            <br>
+            <h4 class="text-monospace">Devoured sandwiches!</h4>
+            <div class="card">
+                <div class="card-body text-monospace">
+
+                    {{#each sandwiches}} {{/each}}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(".create-for ").on("submit", function (event) {
+        event.preventDefault();
+
+        var newSandwich = {
+            sandwich_name: $("#user-input").val().trim(),
+            devoured: false
+        };
+
+        $.ajax("/api/sandwich", {
+            type: "POST",
+            data: newSandwich
+        }).then(function () {
+            console.log("created new sandwich");
+            location.reload();
+        });
+    });
+
+
+</script>

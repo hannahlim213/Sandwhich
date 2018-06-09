@@ -7,7 +7,7 @@ var sandwich = require("../models/sandwhich.js");
 router.get("/", function(req, res) {
     sandwich.all(function(data) {
         var hbsObject = {
-            sandwich: data
+            sandwiches: data
         };
         console.log(hbsObject);
         res.render("index", hbsObject);
