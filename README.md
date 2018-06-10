@@ -6,7 +6,7 @@ Sandwich app lets you create a new sandwich, eat it and give it back.
 
 Demo video
 
-![Homepage](images/homepage.PNG)
+![Eat Da Sandwich Demo Video](Sandwich-Time.webm)
 
 
 ### Installing
