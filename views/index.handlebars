@@ -8,12 +8,16 @@
             <h4 class="text-monospace">Sandwiches to be eaten</h4>
             <div class="card">
                 <div class="card-body text-monospace">
-                    {{#each sandwiches}} {{sandwich_name}} {{#unless devoured}}
+                    {{#each sandwiches}} 
+                        {{#unless devoured}}
+                            {{sandwich_name}}
 
-                    <button class="btn btn-warning change-devour" data-id="{{id}}" data-newdevour="{{devoured}}">
-                        Eat it!
-                    </button>
-                    <hr> {{/unless}} {{/each}}
+                            <button class="btn btn-warning change-devour" data-id="{{id}}" data-devoured="false">
+                                Eat it!
+                            </button>
+                            <hr> 
+                        {{/unless}}
+                    {{/each}}
                 </div>
             </div>
         </div>
@@ -48,8 +52,15 @@
             <h4 class="text-monospace">Devoured sandwiches!</h4>
             <div class="card">
                 <div class="card-body text-monospace">
-
-                    {{#each sandwiches}} {{/each}}
+                    {{#each sandwiches}} 
+                        {{#if devoured}}
+                            {{sandwich_name}}
+                            <button class="btn btn-warning change-devour" data-id="{{id}}" data-devoured="true">
+                                Give It Back!
+                            </button>
+                            <hr> 
+                        {{/if}}
+                    {{/each}}
                 </div>
             </div>
 
@@ -58,22 +69,46 @@
 </div>
 
 <script>
-    $(".create-for").on("submit", function (event) {
-        event.preventDefault();
+    $(document).ready(function() {
+        $(".create-form").on("submit", function (event) {
+            event.preventDefault();
 
-        var newSandwich = {
-            sandwich_name: $("#user-input").val().trim(),
-            devoured: false
-        };
+            var newSandwich = {
+                sandwich_name: $("#user-input").val().trim(),
+                devoured: false
+            };
 
-        $.ajax("/api/sandwich", {
-            type: "POST",
-            data: newSandwich
-        }).then(function () {
-            console.log("created new sandwich");
-            location.reload();
+            $.ajax("/api/sandwich", {
+                type: "POST",
+                data: newSandwich
+            }).then(function () {
+                console.log("created new sandwich");
+                location.reload();
+            });
+        });
+
+        $('body').on('click', '.change-devour', function(event) {
+            event.preventDefault();
+
+            var clickedButton = $(this);
+            var data = {
+                devoured: 1
+            };
+
+            if(clickedButton.data('devoured')) {
+                data.devoured = 0;
+            }
+
+            $.ajax("/api/sandwich/" + clickedButton.data('id'), {
+                type: "PUT",
+                data: data
+            }).then(function () {
+                console.log("Burger Devoured!");
+                location.reload();
+            });
         });
     });
+    
 
 
 </script>

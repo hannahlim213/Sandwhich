@@ -7,7 +7,7 @@ var app = express();
 
 app.use(express.static("public"));
 
-app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.urlencoded({ extended: false})); // parse form to send data. not a json 
 
 app.use(bodyParser.json());
 
